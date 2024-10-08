@@ -1,5 +1,5 @@
 # compile verilog/system verilog design source files
-verilog xil_defaultlib  \
+verilog xil_defaultlib  --include "../../../../lab1.srcs/sources_1/imports/rtl" \
 "../../../../lab1.srcs/sources_1/imports/rtl/basys3.v" \
 "../../../../lab1.srcs/sim_1/imports/tb/model_uart.v" \
 "../../../../lab1.srcs/sources_1/imports/rtl/seq.v" \

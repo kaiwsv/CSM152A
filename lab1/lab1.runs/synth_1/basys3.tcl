@@ -29,7 +29,6 @@ set_property target_language Verilog [current_project]
 set_property ip_output_repo c:/Users/Student/KaiEmanuel/lab1/lab1.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 read_verilog -library xil_defaultlib {
-  C:/Users/Student/KaiEmanuel/lab1/lab1.srcs/sources_1/imports/rtl/seq_definitions.v
   C:/Users/Student/KaiEmanuel/lab1/lab1.srcs/sources_1/imports/rtl/seq.v
   C:/Users/Student/KaiEmanuel/lab1/lab1.srcs/sources_1/imports/rtl/seq_add.v
   C:/Users/Student/KaiEmanuel/lab1/lab1.srcs/sources_1/imports/rtl/seq_alu.v

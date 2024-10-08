@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
+//    `include "seq_definitions.v"
 module tb;
-
    reg [7:0] sw;
    reg       clk;
    reg       btnS;
@@ -18,8 +18,14 @@ module tb;
    
    //memory for executing instructions
    reg[7:0] instructions [1023:0];
-    integer index;
     integer instructions_length;
+
+//could not get include "seq_definition.v" to work
+parameter seq_op_push = 2'b00;
+parameter seq_op_add  = 2'b01;
+parameter seq_op_mult = 2'b10;
+parameter seq_op_send = 2'b11;
+
    initial
      begin
         //$shm_open  ("dump", , ,1);
@@ -44,9 +50,21 @@ module tb;
 
          //read seq file for instruction number
          $readmemb("seq.code", instructions);
+         instructions_length = instructions[0];
+         //start decoding commands
+         for (i = 1; i < instructions_length + 1; i = i + 1) begin
+            
+            if(seq_op_push == instructions[i][7:6])
+                tskRunPUSH(instructions[i][5:4], instructions[i][3:0]);
+            else if(seq_op_add == instructions[i][7:6])
+                tskRunADD(instructions[i][5:4], instructions[i][3:2], instructions[i][1:0]);
+            else if(seq_op_mult == instructions[i][7:6])
+                tskRunMULT(instructions[i][5:4], instructions[i][3:2], instructions[i][1:0]);
+            else if(seq_op_send == instructions[i][7:6])
+                tskRunSEND(instructions[i][5:4]);
+    
+         end
          
-
-        
         #1000;        
         $finish;
      end
