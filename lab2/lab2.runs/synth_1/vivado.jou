@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Tue Oct 22 10:49:13 2024
+# Process ID: 8904
+# Current directory: C:/Users/Student/KaiEmanuel/lab2/lab2.runs/synth_1
+# Command line: vivado.exe -log fpcvt.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source fpcvt.tcl
+# Log file: C:/Users/Student/KaiEmanuel/lab2/lab2.runs/synth_1/fpcvt.vds
+# Journal file: C:/Users/Student/KaiEmanuel/lab2/lab2.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source fpcvt.tcl -notrace

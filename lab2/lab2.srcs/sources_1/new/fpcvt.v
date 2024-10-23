@@ -20,25 +20,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module fpcvt(D,S,E,F);
-    input [11:0] D;
-    output reg S;
-    output reg [2:0] E;
-    output reg [3:0] F;
-    reg [11:0] A;
-     always @(*) begin
-     
-        
-        
-     end
-    
-    
-endmodule
 
 module format_complement(D, S, A);
-    input [11:0] D;
-    output reg S;
-    output reg [11:0] A;
+    input [11:0] D; //input
+    output reg S; //sign bit
+    output reg [11:0] A; //absolute value of D
     
     always @(*) begin
             //extract sign bit and convert 2's complement
@@ -54,38 +40,100 @@ module format_complement(D, S, A);
      end
 endmodule
 
-module priority_encoder(A, B, F, O);
-    input [11:0] A;
+module priority_encoder(A, B, R, O);
+    input [11:0] A; //absolute value of input
     output reg [2:0] B; //unoverflowed exponent
-    output reg [3:0] F;
-    output reg O;
+    output reg [3:0] R; //unrounded significand
+    output reg O; //overflow rounding bit
     integer i;
+    integer break = 0;
+    
     always @(*) begin
-        for(i = 0; i < 8; i = i+1) begin
+        for(i = 0; i < 12 && break == 0; i = i+1) begin
             if(A[11-i] == 1) begin
-                B = 8-i;
-                F = A[11-i +: 4];
-                O = A[11-i-4];
-                break;
+                if(i < 8) begin
+                    B = 8-i;
+                    R = A[11-i +: 4];
+                    O = A[11-i-4];
+                    break = 1;
+                end else begin
+                    B = 0;
+                    O = 0;
+                    if (i == 7) begin
+                        R = A[11-i +: 3];
+                    end else if (i == 8) begin
+                        R = A[11-i +: 2];
+                    end else if (i == 9) begin
+                        R = A[11-i +: 1];
+                    end else if (i == 10) begin
+                        R = A[0];
+                    end
+                end    
+            end
+            else if (i == 11) begin
+                B = 0;
+                O = 0;
+                R = 0;
             end
         end
     end
 endmodule
 
-module rounding_logic(F, R, O, B, E);
-    input [3:0] F;
+module rounding_logic(R, F, O, B, E);
+    input [3:0] R; //unrounded significand
     input [2:0] B; //unoverflowed exponent
     input O; //overflow rounding bit
-    output reg [3:0] R; //final rounded significand/mantissa
+    output reg [3:0] F; //final rounded significand/mantissa
     output reg [2:0] E;  //final exponent
     
     always @(*) begin
-        if (O == 1 && F == 4'b1111) begin
+        if (O == 1 && R == 4'b1111) begin
             E = B + 1;
-            R = 4'b1000;
+            F = 4'b1000;
         end
-        else if (O == 1)
-            R = F + 1;
+        else if (O == 1) begin
+            F = R + 1;
+            E = B;  
+        end
+        else
+            E = B;
+            F = R;
     end
 endmodule
 
+
+module fpcvt(D,S,E,F); 
+    input [11:0] D; //input 12 bit
+    output S; //final sign bit
+    output [2:0] E; //final exponent
+    output [3:0] F; //final 
+    wire [3:0] R;
+    wire [2:0] B;
+    wire O;
+    wire [11:0] A;
+    
+    format_complement complement(
+        .D(D),
+        .S(S),
+        .A(A)
+    );
+    
+    priority_encoder encoder (
+        .A(A),
+        .B(B),
+        .R(R),
+        .O(O)
+    );
+    
+    rounding_logic rounder (
+        .R(R),
+        .F(F),
+        .O(O),
+        .B(B),
+        .E(E)
+    );
+    
+//    complement(D, S, A);
+//    encoder(A, B, R, O);
+//    rounder(R, F, O, B, E);
+endmodule
