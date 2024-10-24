@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-
+//good
 module format_complement(D, S, A);
     input [11:0] D; //input
     output reg S; //sign bit
@@ -49,34 +49,22 @@ module priority_encoder(A, B, R, O);
     integer break = 0;
     
     always @(*) begin
-        for(i = 0; i < 12 && break == 0; i = i+1) begin
-            if(A[11-i] == 1) begin
-                if(i < 8) begin
-                    B = 8-i;
-                    R = A[11-i +: 4];
-                    O = A[11-i-4];
-                    break = 1;
-                end else begin
-                    B = 0;
-                    O = 0;
-                    if (i == 7) begin
-                        R = A[11-i +: 3];
-                    end else if (i == 8) begin
-                        R = A[11-i +: 2];
-                    end else if (i == 9) begin
-                        R = A[11-i +: 1];
-                    end else if (i == 10) begin
-                        R = A[0];
-                    end
-                end    
-            end
-            else if (i == 11) begin
-                B = 0;
-                O = 0;
-                R = 0;
-            end
-        end
+
+        casez (A) // casez allows us to use 'z' for don't care
+            12'b1??????????? : begin B = 3'd7; R = 4'b1111; O = 1; end //-2048
+            12'b01?????????? : begin B = 3'd7; R = A[10:7]; O = A[6]; end // 1 leading zero
+            12'b001????????? : begin B = 3'd6; R = A[9:6]; O = A[5]; end // 2 leading zeroes
+            12'b0001???????? : begin B = 3'd5; R = A[8:5]; O = A[4]; end // 3 leading zeroes
+            12'b00001??????? : begin B = 3'd4; R = A[7:4]; O = A[3]; end // 4 leading zeroes
+            12'b000001?????? : begin B = 3'd3; R = A[6:3]; O = A[2]; end // 5 leading zeroes
+            12'b0000001????? : begin B = 3'd2; R = A[5:2]; O = A[1]; end // 6 leading zeroes
+            12'b00000001???? : begin B = 3'd1; R = A[4:1]; O = A[0]; end // 7 leading zeroes
+            12'b00000000???? : begin B = 0; R = A[3:0]; O = 0; end // 8 or more leading zeroes
+            default: begin B = 0; R = 0; O = 0; end
+        endcase
     end
+        
+       
 endmodule
 
 module rounding_logic(R, F, O, B, E);
@@ -87,18 +75,18 @@ module rounding_logic(R, F, O, B, E);
     output reg [2:0] E;  //final exponent
     
     always @(*) begin
-        if (O == 1 && R == 4'b1111) begin
+        if (O == 1 && R == 4'b1111 && B != 3'b111) begin
             E = B + 1;
             F = 4'b1000;
-        end
-        else if (O == 1) begin
+        end else if (O == 1 && B != 3'b111) begin
             F = R + 1;
             E = B;  
-        end
-        else
+        end else begin
             E = B;
             F = R;
+        end
     end
+    
 endmodule
 
 
@@ -133,7 +121,4 @@ module fpcvt(D,S,E,F);
         .E(E)
     );
     
-//    complement(D, S, A);
-//    encoder(A, B, R, O);
-//    rounder(R, F, O, B, E);
 endmodule
