@@ -74,19 +74,24 @@ module rounding_logic(R, F, O, B, E);
     output reg [3:0] F; //final rounded significand/mantissa
     output reg [2:0] E;  //final exponent
     
+    reg [4:0] overflow_F;
+    reg [3:0] overflow_E;
+    
     always @(*) begin
-        if (O == 1 && R == 4'b1111 && B != 3'b111) begin
-            E = B + 1;
-            F = 4'b1000;
-        end else if (O == 1 && B != 3'b111) begin
-            F = R + 1;
-            E = B;  
-        end else begin
-            E = B;
-            F = R;
+        overflow_F = R + O;
+        overflow_E = B + overflow_F[4]; //increase exponent by one if overflow
+        
+        //catch exponent overflow edge case
+        if (overflow_E[3]) begin
+            F = 4'b1111;
+            E = 3'b111;
+        end
+        //check for F overflow
+        else begin
+            F = overflow_F >> overflow_F [4]; //shift if overflowed
+            E = overflow_E[2:0];
         end
     end
-    
 endmodule
 
 
