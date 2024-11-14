@@ -14,37 +14,25 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 9888 
+INFO: Helper process launched with PID 5096 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 355.707 ; gain = 98.523
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 356.418 ; gain = 99.219
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'stopwatch' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:22]
-INFO: [Synth 8-6157] synthesizing module 'clock_divider' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:92]
-INFO: [Synth 8-6155] done synthesizing module 'clock_divider' (1#1) [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:92]
-INFO: [Synth 8-6157] synthesizing module 'clock_counter' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:129]
-INFO: [Synth 8-6155] done synthesizing module 'clock_counter' (2#1) [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:129]
-INFO: [Synth 8-6157] synthesizing module 'clock_display' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:200]
-WARNING: [Synth 8-567] referenced signal 'digit' should be on the sensitivity list [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:210]
-WARNING: [Synth 8-567] referenced signal 'min_cnt' should be on the sensitivity list [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:210]
-WARNING: [Synth 8-567] referenced signal 'sec_cnt' should be on the sensitivity list [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:210]
-WARNING: [Synth 8-567] referenced signal 'adj' should be on the sensitivity list [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:210]
-INFO: [Synth 8-6155] done synthesizing module 'clock_display' (3#1) [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:200]
-WARNING: [Synth 8-350] instance 'display' of module 'clock_display' requires 6 connections, but only 5 given [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:70]
-INFO: [Synth 8-6157] synthesizing module 'debouncing' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:174]
-WARNING: [Synth 8-567] referenced signal 'btn' should be on the sensitivity list [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:182]
-INFO: [Synth 8-6155] done synthesizing module 'debouncing' (4#1) [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:174]
-CRITICAL WARNING: [Synth 8-3352] multi-driven net rst with 1st driver pin 'stopwatch:/debounce_rst/signal' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:59]
-CRITICAL WARNING: [Synth 8-3352] multi-driven net rst with 2nd driver pin 'GND' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:59]
-CRITICAL WARNING: [Synth 8-5559] multi-driven net rst is connected to constant driver, other driver is ignored [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:59]
-CRITICAL WARNING: [Synth 8-3352] multi-driven net pause with 1st driver pin 'stopwatch:/debounce_pause/signal' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:59]
-CRITICAL WARNING: [Synth 8-3352] multi-driven net pause with 2nd driver pin 'GND' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:59]
-CRITICAL WARNING: [Synth 8-5559] multi-driven net pause is connected to constant driver, other driver is ignored [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:59]
+INFO: [Synth 8-6157] synthesizing module 'clock_divider' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:98]
+INFO: [Synth 8-6155] done synthesizing module 'clock_divider' (1#1) [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:98]
+INFO: [Synth 8-6157] synthesizing module 'clock_counter' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:131]
+INFO: [Synth 8-6155] done synthesizing module 'clock_counter' (2#1) [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:131]
+WARNING: [Synth 8-350] instance 'counter' of module 'clock_counter' requires 9 connections, but only 8 given [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:62]
+INFO: [Synth 8-6157] synthesizing module 'clock_display' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:246]
+INFO: [Synth 8-6155] done synthesizing module 'clock_display' (3#1) [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:246]
+INFO: [Synth 8-6157] synthesizing module 'debouncer' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:214]
+	Parameter stable_threshold bound to: 2 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'debouncer' (4#1) [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:214]
 INFO: [Synth 8-6155] done synthesizing module 'stopwatch' (5#1) [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:22]
-WARNING: [Synth 8-3331] design debouncing has unconnected port clk_500hz
-WARNING: [Synth 8-3331] design stopwatch has unconnected port sw_adj
-WARNING: [Synth 8-3331] design stopwatch has unconnected port sw_sel
+WARNING: [Synth 8-3331] design clock_counter has unconnected port clk_500hz
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 410.441 ; gain = 153.258
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 411.508 ; gain = 154.309
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -53,15 +41,14 @@ Report Check Netlist:
 +------+------------------+-------+---------+-------+------------------+
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
-WARNING: [Synth 8-3295] tying undriven pin display:adj to constant 0 [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:70]
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 410.441 ; gain = 153.258
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 411.508 ; gain = 154.309
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 410.441 ; gain = 153.258
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 411.508 ; gain = 154.309
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7a35tcpg236-1
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -77,26 +64,25 @@ Completed Processing XDC Constraints
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 738.770 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 744.230 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 738.770 ; gain = 481.586
+Finished Constraint Validation : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 744.230 ; gain = 487.031
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcpg236-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 738.770 ; gain = 481.586
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 744.230 ; gain = 487.031
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 738.770 ; gain = 481.586
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 744.230 ; gain = 487.031
 ---------------------------------------------------------------------------------
-WARNING: [Synth 8-327] inferring latch for variable 'signal_reg' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:190]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:12 . Memory (MB): peak = 738.770 ; gain = 481.586
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:12 . Memory (MB): peak = 744.230 ; gain = 487.031
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -109,17 +95,22 @@ Start RTL Component Statistics
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input     32 Bit       Adders := 2     
+	   2 Input      9 Bit       Adders := 2     
 	   2 Input      8 Bit       Adders := 1     
 	   2 Input      7 Bit       Adders := 1     
 	   2 Input      2 Bit       Adders := 1     
 +---Registers : 
-	                1 Bit    Registers := 3     
+	                9 Bit    Registers := 2     
+	                8 Bit    Registers := 1     
+	                7 Bit    Registers := 2     
+	                4 Bit    Registers := 2     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 11    
 +---Muxes : 
-	   2 Input      8 Bit        Muxes := 4     
+	   2 Input      7 Bit        Muxes := 1     
 	   4 Input      4 Bit        Muxes := 2     
-	   2 Input      4 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 4     
+	   3 Input      1 Bit        Muxes := 1     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -136,20 +127,31 @@ Detailed RTL Component Info :
 +---Adders : 
 	   2 Input      8 Bit       Adders := 1     
 	   2 Input      7 Bit       Adders := 1     
++---Registers : 
+	                8 Bit    Registers := 1     
+	                7 Bit    Registers := 1     
+	                1 Bit    Registers := 4     
 +---Muxes : 
-	   2 Input      8 Bit        Muxes := 4     
-	   2 Input      1 Bit        Muxes := 2     
+	   2 Input      7 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 4     
+	   3 Input      1 Bit        Muxes := 1     
 Module clock_display 
 Detailed RTL Component Info : 
 +---Adders : 
 	   2 Input      2 Bit       Adders := 1     
++---Registers : 
+	                7 Bit    Registers := 1     
+	                4 Bit    Registers := 2     
+	                2 Bit    Registers := 1     
 +---Muxes : 
 	   4 Input      4 Bit        Muxes := 2     
-	   2 Input      4 Bit        Muxes := 1     
-Module debouncing 
+Module debouncer 
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input     32 Bit       Adders := 1     
+	   2 Input      9 Bit       Adders := 1     
++---Registers : 
+	                9 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
 ---------------------------------------------------------------------------------
 Finished RTL Hierarchical Component Statistics
 ---------------------------------------------------------------------------------
@@ -166,19 +168,9 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 Warning: Parallel synthesis criteria is not met 
-WARNING: [Synth 8-3331] design stopwatch has unconnected port sw_adj
-WARNING: [Synth 8-3331] design stopwatch has unconnected port sw_sel
-WARNING: [Synth 8-3332] Sequential element (debounce_rst/signal_reg) is unused and will be removed from module stopwatch.
-CRITICAL WARNING: [Synth 8-3352] multi-driven net signal with 1st driver pin 'debounce_rst/signal_reg/Q' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:190]
-CRITICAL WARNING: [Synth 8-3352] multi-driven net signal with 2nd driver pin 'GND' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:190]
-CRITICAL WARNING: [Synth 8-5559] multi-driven net signal is connected to constant driver, other driver is ignored [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:190]
-WARNING: [Synth 8-3332] Sequential element (debounce_pause/signal_reg) is unused and will be removed from module stopwatch.
-CRITICAL WARNING: [Synth 8-3352] multi-driven net signal with 1st driver pin 'debounce_pause/signal_reg/Q' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:190]
-CRITICAL WARNING: [Synth 8-3352] multi-driven net signal with 2nd driver pin 'GND' [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:190]
-CRITICAL WARNING: [Synth 8-5559] multi-driven net signal is connected to constant driver, other driver is ignored [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:190]
-WARNING: [Synth 8-3332] Sequential element (divider/clk_500hz_reg) is unused and will be removed from module stopwatch.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_9/\counter/sec_cnt_reg[6] )
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 738.770 ; gain = 481.586
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 744.230 ; gain = 487.031
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -190,13 +182,13 @@ Report RTL Partitions:
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 738.770 ; gain = 481.586
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:21 . Memory (MB): peak = 744.230 ; gain = 487.031
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 756.367 ; gain = 499.184
+Finished Timing Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 756.035 ; gain = 498.836
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -207,25 +199,8 @@ Report RTL Partitions:
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
-CRITICAL WARNING: [Synth 8-5971] Combinational loop found in the design within module (stopwatch) during invertor optimization at instance (i_120) [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:145]
-INFO: [Synth 8-5966] Removing register instance (\counter/min_cnt_reg[7] ) from module (stopwatch) as it has self-loop and (\counter/min_cnt_reg[7]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:164]
-INFO: [Synth 8-5966] Removing register instance (\counter/min_cnt_reg[6] ) from module (stopwatch) as it has self-loop and (\counter/min_cnt_reg[6]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:164]
-INFO: [Synth 8-5966] Removing register instance (\counter/min_cnt_reg[5] ) from module (stopwatch) as it has self-loop and (\counter/min_cnt_reg[5]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:164]
-INFO: [Synth 8-5966] Removing register instance (\counter/min_cnt_reg[4] ) from module (stopwatch) as it has self-loop and (\counter/min_cnt_reg[4]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:164]
-INFO: [Synth 8-5966] Removing register instance (\counter/min_cnt_reg[3] ) from module (stopwatch) as it has self-loop and (\counter/min_cnt_reg[3]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:164]
-INFO: [Synth 8-5966] Removing register instance (\counter/min_cnt_reg[2] ) from module (stopwatch) as it has self-loop and (\counter/min_cnt_reg[2]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:164]
-INFO: [Synth 8-5966] Removing register instance (\counter/min_cnt_reg[1] ) from module (stopwatch) as it has self-loop and (\counter/min_cnt_reg[1]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:164]
-INFO: [Synth 8-5966] Removing register instance (\counter/min_cnt_reg[0] ) from module (stopwatch) as it has self-loop and (\counter/min_cnt_reg[0]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:164]
-INFO: [Synth 8-5966] Removing register instance (\counter/sec_cnt_reg[6] ) from module (stopwatch) as it has self-loop and (\counter/sec_cnt_reg[6]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:167]
-INFO: [Synth 8-5966] Removing register instance (\counter/sec_cnt_reg[5] ) from module (stopwatch) as it has self-loop and (\counter/sec_cnt_reg[5]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:167]
-INFO: [Synth 8-5966] Removing register instance (\counter/sec_cnt_reg[4] ) from module (stopwatch) as it has self-loop and (\counter/sec_cnt_reg[4]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:167]
-INFO: [Synth 8-5966] Removing register instance (\counter/sec_cnt_reg[3] ) from module (stopwatch) as it has self-loop and (\counter/sec_cnt_reg[3]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:167]
-INFO: [Synth 8-5966] Removing register instance (\counter/sec_cnt_reg[2] ) from module (stopwatch) as it has self-loop and (\counter/sec_cnt_reg[2]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:167]
-INFO: [Synth 8-5966] Removing register instance (\counter/sec_cnt_reg[1] ) from module (stopwatch) as it has self-loop and (\counter/sec_cnt_reg[1]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:167]
-INFO: [Synth 8-5966] Removing register instance (\counter/sec_cnt_reg[0] ) from module (stopwatch) as it has self-loop and (\counter/sec_cnt_reg[0]__0 ) is actual driver [C:/Users/Student/KaiEmanuel/lab3/lab3.srcs/sources_1/new/stopwatch.v:167]
-WARNING: [Synth 8-3332] Sequential element (divider/clk_2hz_reg) is unused and will be removed from module stopwatch.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 761.508 ; gain = 504.324
+Finished Technology Mapping : Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 758.793 ; gain = 501.594
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -249,7 +224,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 761.508 ; gain = 504.324
+Finished IO Insertion : Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 758.793 ; gain = 501.594
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -262,7 +237,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 761.508 ; gain = 504.324
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 758.793 ; gain = 501.594
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -274,25 +249,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 761.508 ; gain = 504.324
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 758.793 ; gain = 501.594
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 761.508 ; gain = 504.324
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 758.793 ; gain = 501.594
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 761.508 ; gain = 504.324
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 758.793 ; gain = 501.594
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 761.508 ; gain = 504.324
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 758.793 ; gain = 501.594
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -308,35 +283,39 @@ Report Cell Usage:
 +------+-------+------+
 |      |Cell   |Count |
 +------+-------+------+
-|1     |BUFG   |     1|
-|2     |CARRY4 |     7|
-|3     |LUT1   |     4|
-|4     |LUT2   |     8|
-|5     |LUT3   |     7|
-|6     |LUT4   |    17|
-|7     |LUT5   |    11|
-|8     |LUT6   |    23|
-|9     |FDRE   |    43|
-|10    |IBUF   |     1|
-|11    |OBUF   |    11|
+|1     |BUFG   |     2|
+|2     |CARRY4 |    20|
+|3     |LUT1   |     7|
+|4     |LUT2   |    13|
+|5     |LUT3   |    18|
+|6     |LUT4   |    35|
+|7     |LUT5   |    23|
+|8     |LUT6   |    37|
+|9     |FDRE   |   134|
+|10    |FDSE   |     2|
+|11    |IBUF   |     5|
+|12    |OBUF   |    11|
 +------+-------+------+
 
 Report Instance Areas: 
-+------+----------+--------------+------+
-|      |Instance  |Module        |Cells |
-+------+----------+--------------+------+
-|1     |top       |              |   133|
-|2     |  counter |clock_counter |    63|
-|3     |  divider |clock_divider |    51|
-+------+----------+--------------+------+
++------+-----------+--------------+------+
+|      |Instance   |Module        |Cells |
++------+-----------+--------------+------+
+|1     |top        |              |   307|
+|2     |  counter  |clock_counter |    59|
+|3     |  db_pause |debouncer     |    25|
+|4     |  db_rst   |debouncer_0   |    25|
+|5     |  display  |clock_display |    32|
+|6     |  divider  |clock_divider |   148|
++------+-----------+--------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 761.508 ; gain = 504.324
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 758.793 ; gain = 501.594
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 7 critical warnings and 7 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:12 ; elapsed = 00:00:16 . Memory (MB): peak = 761.508 ; gain = 175.996
-Synthesis Optimization Complete : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 761.508 ; gain = 504.324
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:12 ; elapsed = 00:00:16 . Memory (MB): peak = 758.793 ; gain = 168.871
+Synthesis Optimization Complete : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 758.793 ; gain = 501.594
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 8 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 25 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
@@ -344,11 +323,11 @@ INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
-37 Infos, 17 Warnings, 13 Critical Warnings and 0 Errors encountered.
+23 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:21 ; elapsed = 00:00:24 . Memory (MB): peak = 761.508 ; gain = 517.367
+synth_design: Time (s): cpu = 00:00:21 ; elapsed = 00:00:24 . Memory (MB): peak = 758.793 ; gain = 514.777
 WARNING: [Constraints 18-5210] No constraint will be written out.
 INFO: [Common 17-1381] The checkpoint 'C:/Users/Student/KaiEmanuel/lab3/lab3.runs/synth_1/stopwatch.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file stopwatch_utilization_synth.rpt -pb stopwatch_utilization_synth.pb
-report_utilization: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.017 . Memory (MB): peak = 761.508 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Tue Nov 12 11:43:30 2024...
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 758.793 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Thu Nov 14 11:41:36 2024...

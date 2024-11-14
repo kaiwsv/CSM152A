@@ -77,7 +77,8 @@ module stopwatch(
         .sec_cnt(sec_cnt), 
         .display_seg(seg), 
         .display_sel(an),
-        .adj(adj)
+        .adj(adj),
+        .sel(sel)
     );
     
     debouncer db_rst(
@@ -91,7 +92,6 @@ module stopwatch(
         .button(btnPause), 
         .stable(pause)
     );
-    
 endmodule
 
 //divide 100 Mhz clk
@@ -124,86 +124,51 @@ module clock_divider(clk, rst_1, rst_2, rst_500, clk_1hz, clk_2hz, clk_500hz);
      clk_2hz <= (ticks_2 > (50000000 / 2))? 1:0;
           
      clk_500hz <= (ticks_500 > (200000/ 2))? 1:0;
-    
-
      end
 endmodule
 
 //handle all clock display logic
-
-//module clock_counter(clk_1hz,clk_2hz, min_cnt, sec_cnt, rst, pause, sel, adj);
-//    input clk_1hz;
-//    input clk_2hz;
-//    input rst;
-//    input pause;
-//    input sel;
-//    input adj;
-//    output reg[6:0] sec_cnt;
-//    output reg[7:0] min_cnt;
-    
-//    always @ (posedge clk_1hz) 
-//    begin
-//        if(rst) begin
-//            sec_cnt <= 0;
-//            min_cnt <= 0;
-//        end else if(~pause) begin
-//            sec_cnt <= sec_cnt + 1;
-        
-//            if(sec_cnt >= 60) begin
-//                sec_cnt <= 0;
-//                min_cnt <= min_cnt + 1;
-//            end
-            
-//            if(min_cnt >= 100) begin
-//                min_cnt <= 0;
-//            end
-//        end else begin
-            
-//        end
-//    end
-    
-//    always @ (posedge clk_2hz) 
-//    begin
-//        if (adj && ~pause) begin
-//            if (sel == 0) begin
-//                min_cnt <= min_cnt + 1;
-//                if (min_cnt >= 99) begin
-//                    min_cnt <= 0;
-//                end
-//            end
-//            else if (sel == 1) begin
-//                sec_cnt <= sec_cnt + 1;
-//                if (sec_cnt >= 59) begin
-//                    sec_cnt <= 0;
-//                end
-//            end
-//        end
-//    end
-//endmodule
-
 module clock_counter(
     input clk_1hz,
     input clk_2hz,
+    input clk_500hz,
     input rst,
     input pause,
     input sel,
     input adj,
     output reg [6:0] sec_cnt,  // Seconds counter (0-59)
     output reg [7:0] min_cnt   // Minutes counter (0-99)
+//    output reg pause_state,
+//    output reg reset_state
 );
 
     reg pause_state; //store togglable state of pause
-    always @ (posedge clk_2hz) begin
-        if (pause) begin
-            pause_state <= ~pause_state;  // Toggle the pause_state on 'pause' signal
-        end
+    reg pause_last;
+    reg reset_state;
+    reg reset_last;
+    
+    initial begin
+        pause_state <= 0;
+        reset_state <= 0;
     end
     
-    always @ (posedge clk_1hz or posedge clk_2hz) begin
-        if (rst) begin
+    //button flip flops
+    always @ (posedge clk_2hz) begin
+        if (rst != reset_last) begin
+            reset_state <= ~reset_state;
+        end
+        if (pause == 1 && pause_last == 0) begin
+            pause_state <= ~pause_state;  // Toggle the pause_state on 'pause' signal
+        end
+        pause_last <= pause;
+        reset_last <= rst;
+    end
+
+    always @ (posedge clk_2hz) begin
+        if (reset_state) begin
             sec_cnt <= 0;
             min_cnt <= 0;
-        end else if (~pause_state) begin
+        end else begin
             if (adj) begin
                 // Adjustment mode (triggered by clk_2hz)
                 if (sel == 0) begin
@@ -220,10 +185,12 @@ module clock_counter(
                         sec_cnt <= sec_cnt + 1;
                         if (sec_cnt >= 59) begin
                             sec_cnt <= 0;
+                            min_cnt <= min_cnt + 1;
                         end
                     end
                 end
-            end else begin
+             end
+            else if (~pause_state && ~adj) begin
                 // Normal counting mode (triggered by clk_1hz)
                 if (clk_1hz) begin
                     sec_cnt <= sec_cnt + 1;
@@ -237,7 +204,7 @@ module clock_counter(
                     end
                 end
             end
-        end 
+        end
     end
 
 endmodule
@@ -250,7 +217,7 @@ module debouncer(
     output reg stable      // Debounced stable output
 );
 
-    parameter stable_threshold = 100; //arbitrary threshold
+    parameter stable_threshold = 2; //arbitrary threshold
     
     reg [8:0] counter;
     reg button_last;
@@ -273,16 +240,16 @@ module debouncer(
          end
          button_last <= button;
     end
-    
 endmodule
 
 //display time onto clock
-module clock_display(clk_2hz, clk_500hz, min_cnt, sec_cnt, display_seg, display_sel, adj);
+module clock_display(clk_2hz, clk_500hz, min_cnt, sec_cnt, display_seg, display_sel, adj, sel);
     input clk_2hz;
     input clk_500hz;
     input [6:0] sec_cnt;
     input [7:0] min_cnt;
     input adj;
+    input sel;
     output reg [6:0] display_seg;
     output reg[3:0] display_sel;
     reg [1:0] digit;
@@ -296,49 +263,33 @@ module clock_display(clk_2hz, clk_500hz, min_cnt, sec_cnt, display_seg, display_
         end
             
         //output selects
-        //blink logic: if adj is selected and clk_2hz is high, still allow output
-        //in other words, if ~(adj && ~clk_2hz)
-//        case (digit)
-//            2'b00: begin
-//                display_sel <= 4'b0111; //minutes tens place
-//                digit_to_display <= (min_cnt) / 10;
-//            end
-//            2'b01: begin
-//                display_sel <= 4'b1011; //minutes ones place
-//                digit_to_display <= (min_cnt) % 10;
-//            end
-//            2'b10: begin
-//                display_sel <= 4'b1101; //seconds tens place
-//                digit_to_display <= (sec_cnt) / 10;
-//            end
-//            2'b11: begin
-//                display_sel <= 4'b1110; //seconds ones place
-//                digit_to_display <= (sec_cnt) % 10;
-//            end
-//        endcase
-    
-    //temp to fix digits
         case (digit)
-            2'b00: begin
-                display_sel <= 4'b1110; //minutes tens place
-                digit_to_display <= (sec_cnt) % 10;
-            end
-            2'b01: begin
-                display_sel <= 4'b1101; //minutes ones place
-                digit_to_display <= (sec_cnt + 1) % 10;
-            end
             2'b10: begin
                 display_sel <= 4'b1011; //seconds tens place
-                digit_to_display <= (sec_cnt + 1) % 10;
+                digit_to_display <= (sec_cnt) / 10;
             end
             2'b11: begin
-                display_sel <= 4'b0111; //seconds ones place
-                digit_to_display <= (sec_cnt + 1) % 10;
+                display_sel <= 4'b1101; //seconds ones place
+                digit_to_display <= (sec_cnt) % 10;
+            end
+            2'b00: begin
+                display_sel <= 4'b1110; //minutes tens place
+                digit_to_display <= (min_cnt) / 10;
+            end
+            2'b01: begin
+                display_sel <= 4'b0111; //minutes ones place
+                digit_to_display <= (min_cnt) % 10;
             end
         endcase
         
-        if (adj && ~clk_2hz) begin //if adjust is on and clk_2hz is low, turn off everything
-            display_sel <= 4'b1111;
+        //if adjust is on and clk_2hz is low, turn off everything
+        if (adj && ~clk_2hz) begin 
+            if (sel == 0) begin //minutes
+                display_sel <= 4'b1001;
+            end
+            else begin //seconds
+                display_sel <= 4'b0110;
+            end
         end
         
         //output display
