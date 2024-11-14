@@ -20,51 +20,83 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
+`timescale 1ns / 1ps
+
 module stopwatch_tb;
-//    reg clk;
-    reg clk_500hz;
-    reg [7:0] min_cnt;
-    reg [6:0] sec_cnt;
-    wire [6:0] display_seg;
-    wire [3:0] display_sel;
-    integer i;
-    
-    clock_display uut(
-        .clk_500hz(clk_500hz), 
-        .min_cnt(min_cnt), 
-        .sec_cnt(sec_cnt), 
-        .display_seg(display_seg), 
-        .display_sel(display_sel)
+
+    // Testbench signals
+    reg clk;
+    reg btnRst;
+    reg btnPause;
+    reg adj;
+    reg sel;
+    wire [6:0] seg;
+    wire [3:0] an;
+
+    // Instantiate the stopwatch module
+    stopwatch uut (
+        .clk(clk),
+        .btnRst(btnRst),
+        .btnPause(btnPause),
+        .adj(adj),
+        .sel(sel),
+        .seg(seg),
+        .an(an)
     );
 
-    //clock generation
+    // Generate 100 MHz clock
+    initial clk = 0;
+    always #5 clk = ~clk; // Toggle every 5 ns for a 100 MHz clock
+
+    // Test procedure
     initial begin
-        clk_500hz = 0;
-        forever #(500000) clk_500hz = ~clk_500hz;
+        // Initialize inputs
+        btnRst = 0;
+        btnPause = 0;
+        adj = 0;
+        sel = 0;
+
+        // Wait for global reset
+        #100;
+
+        // Test Case 1: Reset the stopwatch
+        btnRst = 1;
+        #10 btnRst = 0;
+        #100000; // Wait to observe reset effect
+
+        // Test Case 2: Start the stopwatch and let it run
+        #100000; // Wait to observe counting
+
+        // Test Case 3: Pause and resume
+        btnPause = 1;
+        #10 btnPause = 0;
+        #50000; // Wait while paused
+        btnPause = 1;
+        #10 btnPause = 0;
+        #100000; // Wait to observe resumed counting
+
+        // Test Case 4: Enter adjustment mode and adjust minutes
+        adj = 1;
+        sel = 0; // Adjust minutes
+        #50000;
+        adj = 0;
+
+        // Test Case 5: Enter adjustment mode and adjust seconds
+        adj = 1;
+        sel = 1; // Adjust seconds
+        #50000;
+        adj = 0;
+
+        // Test Case 6: Pause and reset during running
+        btnPause = 1;
+        #10 btnPause = 0;
+        #50000;
+        btnRst = 1;
+        #10 btnRst = 0;
+
+        // End simulation
+        #500000;
+        $stop;
     end
-    
-    initial begin
-    #10
-        min_cnt = 7'b0000000;
-        sec_cnt = 6'b000000;
-        
-//        #100000000
-//                min_cnt = 7'b0000001;
-//                sec_cnt = 6'b000001;
-//                        #100000000
-                
-//        #1000000
-//        min_cnt = 7'b0000010;
-//        sec_cnt = 6'b000010;
-        
-        i = 0;
-        while (i < 1000) begin
-            min_cnt = i / 60;
-            sec_cnt = i % 60;
-            #1000000 i = i + 1;
-        end
-        
-        #100000000
-        $finish;
-        end
+
 endmodule
