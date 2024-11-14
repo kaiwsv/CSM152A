@@ -1,24 +1,12 @@
 #-----------------------------------------------------------
-# Vivado v2024.1.2 (64-bit)
-# SW Build 5164865 on Thu Sep  5 14:37:11 MDT 2024
-# IP Build 5164407 on Fri Sep  6 08:18:11 MDT 2024
-# SharedData Build 5164864 on Thu Sep 05 13:09:09 MDT 2024
-# Start of session at: Wed Nov 13 16:32:29 2024
-# Process ID: 16936
-# Current directory: C:/Users/BOBBY/Documents/GitHub/CSM152A/lab3/lab3.runs/synth_1
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Tue Nov 12 11:43:02 2024
+# Process ID: 7488
+# Current directory: C:/Users/Student/KaiEmanuel/lab3/lab3.runs/synth_1
 # Command line: vivado.exe -log stopwatch.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source stopwatch.tcl
-# Log file: C:/Users/BOBBY/Documents/GitHub/CSM152A/lab3/lab3.runs/synth_1/stopwatch.vds
-# Journal file: C:/Users/BOBBY/Documents/GitHub/CSM152A/lab3/lab3.runs/synth_1\vivado.jou
-# Running On        :DESKTOP-7V211I7
-# Platform          :Windows Server 2016 or Windows 10
-# Operating System  :19045
-# Processor Detail  :Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz
-# CPU Frequency     :3408 MHz
-# CPU Physical cores:4
-# CPU Logical cores :8
-# Host memory       :17096 MB
-# Swap memory       :17179 MB
-# Total Virtual     :34276 MB
-# Available Virtual :15112 MB
+# Log file: C:/Users/Student/KaiEmanuel/lab3/lab3.runs/synth_1/stopwatch.vds
+# Journal file: C:/Users/Student/KaiEmanuel/lab3/lab3.runs/synth_1\vivado.jou
 #-----------------------------------------------------------
 source stopwatch.tcl -notrace

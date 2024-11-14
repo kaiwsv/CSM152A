@@ -11,66 +11,18 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000000000 ms"></ZoomStartTime>
-      <ZoomEndTime time="111.978835001 ms"></ZoomEndTime>
-      <Cursor1Time time="0.000000000 ms"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="9139273000000000001fs"></ZoomEndTime>
+      <Cursor1Time time="0fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="129"></NameColumnWidth>
-      <ValueColumnWidth column_width="90"></ValueColumnWidth>
+      <NameColumnWidth column_width="163"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="18" />
-   <wvobject fp_name="/stopwatch_tb/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/btnRst" type="logic">
-      <obj_property name="ElementShortName">btnRst</obj_property>
-      <obj_property name="ObjectShortName">btnRst</obj_property>
-   </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/btnPause" type="logic">
-      <obj_property name="ElementShortName">btnPause</obj_property>
-      <obj_property name="ObjectShortName">btnPause</obj_property>
-   </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/adj" type="logic">
-      <obj_property name="ElementShortName">adj</obj_property>
-      <obj_property name="ObjectShortName">adj</obj_property>
-   </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/sel" type="logic">
-      <obj_property name="ElementShortName">sel</obj_property>
-      <obj_property name="ObjectShortName">sel</obj_property>
-   </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/seg" type="array">
-      <obj_property name="ElementShortName">seg[6:0]</obj_property>
-      <obj_property name="ObjectShortName">seg[6:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/an" type="array">
-      <obj_property name="ElementShortName">an[3:0]</obj_property>
-      <obj_property name="ObjectShortName">an[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/rst_1" type="logic">
-      <obj_property name="ElementShortName">rst_1</obj_property>
-      <obj_property name="ObjectShortName">rst_1</obj_property>
-   </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/rst_2" type="logic">
-      <obj_property name="ElementShortName">rst_2</obj_property>
-      <obj_property name="ObjectShortName">rst_2</obj_property>
-   </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/rst_500" type="logic">
-      <obj_property name="ElementShortName">rst_500</obj_property>
-      <obj_property name="ObjectShortName">rst_500</obj_property>
-   </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/clk_1hz" type="logic">
-      <obj_property name="ElementShortName">clk_1hz</obj_property>
-      <obj_property name="ObjectShortName">clk_1hz</obj_property>
-   </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/clk_2hz" type="logic">
-      <obj_property name="ElementShortName">clk_2hz</obj_property>
-      <obj_property name="ObjectShortName">clk_2hz</obj_property>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/stopwatch_tb/clk_500hz" type="logic">
+      <obj_property name="ElementShortName">clk_500hz</obj_property>
+      <obj_property name="ObjectShortName">clk_500hz</obj_property>
    </wvobject>
    <wvobject fp_name="/stopwatch_tb/uut/clk_500hz" type="logic">
       <obj_property name="ElementShortName">clk_500hz</obj_property>
@@ -84,12 +36,20 @@
       <obj_property name="ElementShortName">min_cnt[7:0]</obj_property>
       <obj_property name="ObjectShortName">min_cnt[7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/clk_rst" type="logic">
-      <obj_property name="ElementShortName">clk_rst</obj_property>
-      <obj_property name="ObjectShortName">clk_rst</obj_property>
+   <wvobject fp_name="/stopwatch_tb/uut/display_seg" type="array">
+      <obj_property name="ElementShortName">display_seg[6:0]</obj_property>
+      <obj_property name="ObjectShortName">display_seg[6:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/stopwatch_tb/uut/pause" type="logic">
-      <obj_property name="ElementShortName">pause</obj_property>
-      <obj_property name="ObjectShortName">pause</obj_property>
+   <wvobject fp_name="/stopwatch_tb/uut/display_sel" type="array">
+      <obj_property name="ElementShortName">display_sel[3:0]</obj_property>
+      <obj_property name="ObjectShortName">display_sel[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/stopwatch_tb/uut/digit" type="array">
+      <obj_property name="ElementShortName">digit[1:0]</obj_property>
+      <obj_property name="ObjectShortName">digit[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/stopwatch_tb/uut/digit_to_display" type="array">
+      <obj_property name="ElementShortName">digit_to_display[3:0]</obj_property>
+      <obj_property name="ObjectShortName">digit_to_display[3:0]</obj_property>
    </wvobject>
 </wave_config>
