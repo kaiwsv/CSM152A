@@ -20,42 +20,83 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
+`timescale 1ns / 1ps
+
 module stopwatch_tb;
+
+    // Testbench signals
     reg clk;
-    reg rst_1;
-    reg rst_2;
-    reg rst_500;
-    wire clk_1hz;
-    wire clk_2hz;
-    wire clk_500hz;
-    
-    clock_divider uut (
+    reg btnRst;
+    reg btnPause;
+    reg adj;
+    reg sel;
+    wire [6:0] seg;
+    wire [3:0] an;
+
+    // Instantiate the stopwatch module
+    stopwatch uut (
         .clk(clk),
-        .rst_1(rst_1),
-        .rst_2(rst_2),
-        .rst_500(rst_500),
-        .clk_1hz(clk_1hz),
-        .clk_2hz(clk_2hz),
-        .clk_500hz(clk_500hz)
+        .btnRst(btnRst),
+        .btnPause(btnPause),
+        .adj(adj),
+        .sel(sel),
+        .seg(seg),
+        .an(an)
     );
 
-    //clock generation
-    initial begin
-        clk = 0;
-        forever #5 clk = ~clk;
-    end
-    
-    initial begin
-        rst_1 = 1;
-        rst_2 = 1;
-        rst_500 = 1;
-        
-        #10
+    // Generate 100 MHz clock
+    initial clk = 0;
+    always #5 clk = ~clk; // Toggle every 5 ns for a 100 MHz clock
 
-                rst_1 = 0;
-                rst_2 = 0;
-                rst_500 = 0;
-        #10000000000
-        $finish;
-        end
+    // Test procedure
+    initial begin
+        // Initialize inputs
+        btnRst = 0;
+        btnPause = 0;
+        adj = 0;
+        sel = 0;
+
+        // Wait for global reset
+        #100;
+
+        // Test Case 1: Reset the stopwatch
+        btnRst = 1;
+        #10 btnRst = 0;
+        #100000; // Wait to observe reset effect
+
+        // Test Case 2: Start the stopwatch and let it run
+        #100000; // Wait to observe counting
+
+        // Test Case 3: Pause and resume
+        btnPause = 1;
+        #10 btnPause = 0;
+        #50000; // Wait while paused
+        btnPause = 1;
+        #10 btnPause = 0;
+        #100000; // Wait to observe resumed counting
+
+        // Test Case 4: Enter adjustment mode and adjust minutes
+        adj = 1;
+        sel = 0; // Adjust minutes
+        #50000;
+        adj = 0;
+
+        // Test Case 5: Enter adjustment mode and adjust seconds
+        adj = 1;
+        sel = 1; // Adjust seconds
+        #50000;
+        adj = 0;
+
+        // Test Case 6: Pause and reset during running
+        btnPause = 1;
+        #10 btnPause = 0;
+        #50000;
+        btnRst = 1;
+        #10 btnRst = 0;
+
+        // End simulation
+        #500000;
+        $stop;
+    end
+
 endmodule
