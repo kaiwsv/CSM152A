@@ -130,7 +130,7 @@ endmodule
 //handle all clock display logic
 module clock_counter(
     input clk_1hz,
-    input clk_2hz,
+    input clk_2hz,  
     input clk_500hz,
     input rst,
     input pause,
