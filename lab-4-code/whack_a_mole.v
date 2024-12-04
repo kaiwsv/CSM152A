@@ -28,7 +28,6 @@ module whack_a_mole(
     output wire[15:0] leds,
     output wire[6:0] seg,
     output wire[3:0] an
-
 );
     clock_divider divider(
     .clk(clk),

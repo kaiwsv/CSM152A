@@ -19,16 +19,75 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+module switch_edge(
+    input switch, 
+    input switch_last, 
+    input led,
+    output reg led_new,
+    output reg is_negative,
+    output reg change_point
+    );
+
+    assign change_point = switch ^ switch_last; //always have some point difference if switch flips
+    assign is_negative = change_point && ~led; //indicated if point difference is positive or negative
+    assign led_new = led && ~switch; //if led is on and switch is flipped, turn off
+endmodule
 
 module game(
     input wire clk_1hz,
     input wire clk_500hz,
     input [15:0] switches,
-    output [15:0] leds,
-    output [3:0][6:0] digits
+    input [1:0] state,
+    output [7:0] points,
+    output [15:0] leds
+    // output [3:0][6:0] digits
 );
+
+    //lfsr variables
+    reg lfsr_reset;
+    reg lfsr_enable;
+    wire [3:0] random;
+
+    //local variables
+    reg [15:0] switches_last;
+    reg [15:0] switches_flipped;
+    reg [15:0] leds_last;
+    reg [2:0] leds_on;
+    reg [15:0] is_negative;
+    reg [15:0] change_point;
+
+    //rng module
+    lfsr rng(clk_500hz, lfsr_reset, lfsr_enable, random);
+
+    //switch edge module
+    switch_edge switch0(switches[0], switches_last[0], leds_last[0], leds[0], is_negative[0], change_point[0]);
+    switch_edge switch1(switches[1], switches_last[1], leds_last[1], leds[1], is_negative[1], change_point[1]);
+
+    initial begin
+        lfsr_reset <= 1;
+        leds_on <= 0;
+        is_negative <= 0;
+        change_point <= 0;
+    end
+
+    always @(posedge clk_500hz) begin
+        lfsr_enable = 1;
+        lfsr_reset = 0;
+
+        points = points + change_point[0] | change_point[1];
+
+        //turn on new LEDs if necessary
+        //only occurs if there's few moles (<6) and led is not already on 
+        if (leds_last[random] == 0 && leds_on < 6) begin
+            leds_on = leds_on + 1;
+            leds_last[random] = 1;
+        end
+
+        leds = leds_last;
+    end
 endmodule
 
+/*
 module start(
 
 );
@@ -43,6 +102,7 @@ module status(
 
 );
 endmodule
+*/
 
 module state_manager(
     input clk,
@@ -53,31 +113,32 @@ module state_manager(
     input resetAll,
     input go,
     input [15:0] switches,
+    output [1:0] state,
     output [15:0] leds
-    output [6:0] display_seg;
-    output [3:0] display_sel;
+    output [6:0] display_seg,
+    output [3:0] display_sel,
 );
+
+//4 states:
+//00: status
+//01: start game
+//10: in game //only implementing this one for now
+//11: finish game
 
 //wires
 wire [10:0] score;
 wire [3:0] countdown_start;
 wire [5:0] countdown_game;
 wire [3:0] countdown_finish;
-wire [6:0] display_seg,
-wire [3:0] display_sel,
-wire initialize
+wire [6:0] display_seg;
+wire [3:0] display_sel;
+wire initialize;
 
 //0-3 correspond to states, 4 is output
 wire [4:0][3:0][6:0] digits;
 wire [4:0][15:0] leds;
 
 //local variables
-//4 states:
-//00: status
-//01: start game
-//10: in game
-//11: finish game
-reg [1:0] state;
 reg [3:0] games_played;
 reg [10:0] high_score; //can be negative
 
@@ -88,6 +149,7 @@ initial begin
     initialize = 0
 end
 
+/*
 //handle state transitions
 always @(posedge clk) begin
     if (initialize)
@@ -154,9 +216,13 @@ always @(posedge clk) begin
         digits[4] = digits[3];
         leds[4] = leds[3];
     end
-
 end
+*/
 
+//TODO fix when states implemented
+assign digits[4] = digits[2];
+assign leds[4] = leds[2];
+/*
 status status_display(
 
 );
@@ -166,12 +232,13 @@ start start_game(
 );
 
 game in_game(
-
+    //TODO populate
 );
 
 finish finish_game(
 
 );
+*/
 
 clock_display display(
     .clk_2hz(clk_2hz),

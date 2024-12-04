@@ -160,6 +160,44 @@ module clock_display(clk_2hz, clk_500hz, digit_0, digit_1, digit_2, digit_3, bli
         default: display_seg <= 7'b1111111;   // Blank or error state
     endcase
     end
+endmodule
     
+module lfsr(
+    input wire clk, 
+    input wire lfsr_rst, 
+    input wire enable,
+    output reg [3:0] random);
+
+    reg [3:0] lfsr;
+    wire feedback;
+    assign feedback = lfsr[3] ^ lfsr[1] ^ lfsr[2];
+
+    always @(posedge clk or posedge lfsr_rst) begin
+        if (lfsr_rst)
+            lfsr <= 4'b1010; //set to arbitrary non-zero value
+            lfsr_rst <= 0;
+        else if (enable) begin
+            //shift using feedback
+            lfsr <= {lfsr[2:0], feedback};
+        end
+    end 
+
+    always @(posedge clk) begin
+        random <= lfsr;
+    end
+
 endmodule
 
+module switch_edge(
+    input reg switch, 
+    input reg switch_last, 
+    input reg led,
+    output reg led_new,
+    output reg is_negative,
+    output reg change_point
+    );
+
+    assign change_point = switch ^ switch_last; //always have some point difference if switch flips
+    assign is_negative = change_point && ~led; //indicated if point difference is positive or negative
+    assign led_new = led && ~switch; //if led is on and switch is flipped, turn off
+endmodule
