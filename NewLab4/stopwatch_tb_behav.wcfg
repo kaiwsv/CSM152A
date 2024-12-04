@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="game_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="game_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="46897540743983fs"></ZoomEndTime>
+      <Cursor1Time time="23814770000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="151"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="6" />
+   <wvobject fp_name="/game_tb/clk_500hz" type="logic">
+      <obj_property name="ElementShortName">clk_500hz</obj_property>
+      <obj_property name="ObjectShortName">clk_500hz</obj_property>
+   </wvobject>
+   <wvobject fp_name="/game_tb/leds" type="array">
+      <obj_property name="ElementShortName">leds[15:0]</obj_property>
+      <obj_property name="ObjectShortName">leds[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/game_tb/uut/switches" type="array">
+      <obj_property name="ElementShortName">switches[15:0]</obj_property>
+      <obj_property name="ObjectShortName">switches[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/game_tb/uut/points" type="array">
+      <obj_property name="ElementShortName">points[7:0]</obj_property>
+      <obj_property name="ObjectShortName">points[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/game_tb/uut/random" type="array">
+      <obj_property name="ElementShortName">random[3:0]</obj_property>
+      <obj_property name="ObjectShortName">random[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/game_tb/uut/is_negative" type="array">
+      <obj_property name="ElementShortName">is_negative[15:0]</obj_property>
+      <obj_property name="ObjectShortName">is_negative[15:0]</obj_property>
+   </wvobject>
+</wave_config>

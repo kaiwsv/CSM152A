@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1733253920">
+  <File Type="PA-TCL" Name="whack_a_mole.tcl"/>
+  <File Type="BITSTR-BMM" Name="whack_a_mole_bd.bmm"/>
+  <File Type="REPORTS-TCL" Name="whack_a_mole_reports.tcl"/>
+  <File Type="OPT-DCP" Name="whack_a_mole_opt.dcp"/>
+  <File Type="OPT-HWDEF" Name="whack_a_mole.hwdef"/>
+  <File Type="PWROPT-DCP" Name="whack_a_mole_pwropt.dcp"/>
+  <File Type="PLACE-DCP" Name="whack_a_mole_placed.dcp"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="whack_a_mole_incremental_reuse_pre_placed.rpt"/>
+  <File Type="BG-BGN" Name="whack_a_mole.bgn"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="whack_a_mole_postplace_pwropt.dcp"/>
+  <File Type="BG-BIN" Name="whack_a_mole.bin"/>
+  <File Type="PHYSOPT-DCP" Name="whack_a_mole_physopt.dcp"/>
+  <File Type="BITSTR-MSK" Name="whack_a_mole.msk"/>
+  <File Type="ROUTE-ERROR-DCP" Name="whack_a_mole_routed_error.dcp"/>
+  <File Type="ROUTE-DCP" Name="whack_a_mole_routed.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="whack_a_mole_routed_bb.dcp"/>
+  <File Type="BITSTR-LTX" Name="whack_a_mole.ltx"/>
+  <File Type="BITSTR-MMI" Name="whack_a_mole.mmi"/>
+  <File Type="BITSTR-SYSDEF" Name="whack_a_mole.sysdef"/>
+  <File Type="ROUTE-TIMING-PB" Name="whack_a_mole_timing_summary_routed.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="whack_a_mole_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="whack_a_mole_postroute_physopt_bb.dcp"/>
+  <File Type="BG-BIT" Name="whack_a_mole.bit"/>
+  <File Type="BITSTR-RBT" Name="whack_a_mole.rbt"/>
+  <File Type="BITSTR-NKY" Name="whack_a_mole.nky"/>
+  <File Type="BG-DRC" Name="whack_a_mole.drc"/>
+  <File Type="RDI-RDI" Name="whack_a_mole.vdi"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/whack_a_mole.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/Downloads/helpers.v">
+      <FileInfo>
+        <Attr Name="UserDisabled" Val="1"/>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../Downloads/helpers.v"/>
+        <Attr Name="ImportTime" Val="1733281244"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="whack_a_mole"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/new/basys3.xdc">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/basys3.xdc"/>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+</GenRun>
