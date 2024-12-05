@@ -111,19 +111,19 @@ module clock_display(clk_2hz, clk_500hz, digit_0, digit_1, digit_2, digit_3, bli
         //output selects
         case (digit)
             2'b00: begin
-                display_sel <= 4'b1110; //LSB
+                display_sel <= 4'b1011; //LSB
                 digit_to_display <= digit_0;
             end
             2'b01: begin
-                display_sel <= 4'b0111;
+                display_sel <= 4'b1101;
                 digit_to_display <= digit_1;
             end
             2'b10: begin
-                display_sel <= 4'b1011;
+                display_sel <= 4'b1110;
                 digit_to_display <= digit_2;
             end
             2'b11: begin
-                display_sel <= 4'b1101; //MSB
+                display_sel <= 4'b0111; //MSB
                 digit_to_display <= digit_3;
             end
         endcase
@@ -153,6 +153,7 @@ module clock_display(clk_2hz, clk_500hz, digit_0, digit_1, digit_2, digit_3, bli
         5'b10001: display_seg <= 7'b0010010; // "S" (same as "5")
         5'b10010: display_seg <= 7'b0000111; // "T"
         5'b10011: display_seg <= 7'b1111101; // "!" (only segment B lit)
+        5'b10100: display_seg <= 7'b1000110; // "C"
 
         default: display_seg <= 7'b1111111;   // Blank or error state, show nothing
     endcase
@@ -163,12 +164,17 @@ module lfsr(
     input wire clk, 
     input wire lfsr_rst, 
     input wire enable,
-    output reg [3:0] random);
-
+    output reg [3:0] random
+    );
+    
     reg [7:0] lfsr;
     wire feedback;
     assign feedback = ~(lfsr[7] ^ lfsr[6] ^ lfsr[0] ^ lfsr[3]);
-
+    
+    initial begin
+        lfsr <= 8'b10101010; //set to arbitrary non-zero value
+    end
+    
     always @(posedge clk or posedge lfsr_rst) begin
         if (lfsr_rst)
             lfsr <= 8'b10101010; //set to arbitrary non-zero value
@@ -201,28 +207,45 @@ endmodule
 
 module countdown(
     input clk_1hz,
-//    input clk_500hz,
-    input rst,
-    output reg [6:0] sec_cnt  // Seconds counter (0-59)
-	);
+    input clk_500hz,
+    input rst_game,
+    input [7:0] points,
+    output reg countdown_game,
+    output reg [6:0] digit_0,
+    output reg [6:0] digit_1,
+    output reg [6:0] digit_2,
+    output reg [6:0] digit_3
+    );
 
-    reg reset_all_state;
-    reg reset_all_last;
-    
+    reg [6:0] sec_cnt;
+
     initial begin
-//        pause_state <= 0;
-        sec_cnt <= 7'd19;
-        reset_all_state <= 0;
+        sec_cnt <= 7'd59;
+        countdown_game = 0;
+    end
+
+    always @ (posedge clk_500hz) begin
+        // points
+        digit_1 = points % 10;
+        digit_0 = points / 10;
+
+        // seconds countdown
+        digit_3 = sec_cnt % 10;
+        digit_2 = sec_cnt / 10;
     end
     
     always @ (posedge clk_1hz) begin
-        if (reset_all_state) begin
-            sec_cnt <= 7'd59;
+        if (rst_game) begin
+            sec_cnt <= 7'd29;
+            countdown_game = 0;
         end else begin
-            if (sec_cnt == 0) begin
-                sec_cnt <= 7'd59;
+            if (sec_cnt <= 0) begin
+                countdown_game <= 1;
             end
-            sec_cnt <= sec_cnt - 1;
+            else begin
+                sec_cnt <= sec_cnt - 1; 
+                countdown_game <= 0;
+            end
         end
     end
 endmodule

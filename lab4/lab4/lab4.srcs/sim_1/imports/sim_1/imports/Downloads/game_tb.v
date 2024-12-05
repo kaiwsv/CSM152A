@@ -17,7 +17,6 @@ module game_tb;
         .clk_1hz(clk_1hz),
         .clk_500hz(clk_500hz),
         .switches(switches),
-        .state(state),
         .leds(leds)
 //        .digits(digits)
     );

@@ -5,6 +5,7 @@ Running: E:/Xilinx/Vivado/2024.1/bin/unwrapped/win64.o/xelab.exe --incr --debug 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-5021] port 'clk_2hz' is not connected on this instance [C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sim_1/imports/sim_1/imports/Downloads/game_tb.v:16]
 Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis
