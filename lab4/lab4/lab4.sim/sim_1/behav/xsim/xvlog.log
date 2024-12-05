@@ -1,0 +1,27 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sources_1/imports/sources_1/new/whack_a_mole.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module whack_a_mole
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sources_1/imports/sources_1/imports/Downloads/helpers.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock_divider
+INFO: [VRFC 10-311] analyzing module debouncer
+INFO: [VRFC 10-311] analyzing module clock_display
+INFO: [VRFC 10-311] analyzing module lfsr
+INFO: [VRFC 10-311] analyzing module switch_edge
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sources_1/imports/sources_1/imports/Downloads/game.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module game
+INFO: [VRFC 10-311] analyzing module state_manager
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sim_1/imports/sim_1/new/stopwatch_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module whack_a_mole
+WARNING: [VRFC 10-3609] overwriting previous definition of module 'whack_a_mole' [C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sim_1/imports/sim_1/new/stopwatch_tb.v:23]
+INFO: [VRFC 10-311] analyzing module clock_divider
+WARNING: [VRFC 10-3609] overwriting previous definition of module 'clock_divider' [C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sim_1/imports/sim_1/new/stopwatch_tb.v:82]
+INFO: [VRFC 10-311] analyzing module debouncer
+WARNING: [VRFC 10-3609] overwriting previous definition of module 'debouncer' [C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sim_1/imports/sim_1/new/stopwatch_tb.v:115]
+INFO: [VRFC 10-311] analyzing module clock_counter
+INFO: [VRFC 10-311] analyzing module clock_display
+WARNING: [VRFC 10-3609] overwriting previous definition of module 'clock_display' [C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sim_1/imports/sim_1/new/stopwatch_tb.v:181]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sim_1/imports/sim_1/imports/Downloads/game_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module game_tb
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sim_1/imports/sim_1/imports/Downloads/lfsr_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_lfsr_rng
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sim_1/imports/sim_1/new/tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb
