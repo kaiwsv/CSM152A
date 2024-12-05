@@ -198,3 +198,31 @@ module switch_edge(
     assign led_new = led && ~change_point; //if led is on and switch is flipped, turn off
 endmodule
 
+
+module countdown(
+    input clk_1hz,
+//    input clk_500hz,
+    input rst,
+    output reg [6:0] sec_cnt  // Seconds counter (0-59)
+	);
+
+    reg reset_all_state;
+    reg reset_all_last;
+    
+    initial begin
+//        pause_state <= 0;
+        sec_cnt <= 7'd19;
+        reset_all_state <= 0;
+    end
+    
+    always @ (posedge clk_1hz) begin
+        if (reset_all_state) begin
+            sec_cnt <= 7'd59;
+        end else begin
+            if (sec_cnt == 0) begin
+                sec_cnt <= 7'd59;
+            end
+            sec_cnt <= sec_cnt - 1;
+        end
+    end
+endmodule
