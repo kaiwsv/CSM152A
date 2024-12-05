@@ -18,15 +18,16 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
+//paste into helpers later
+
 
 module game(
     input wire clk_1hz,
     input wire clk_500hz,
     input [15:0] switches,
-    input [1:0] state,
+    input initialize,
     output reg [7:0] points,
     output reg [15:0] leds
-//    output [3:0][6:0] digits
 );
 
     parameter MAX_MOLES = 10;
@@ -67,16 +68,23 @@ module game(
 
     initial begin
         switches_last <= 0;
-        lfsr_reset <= 1;
         leds_on <= 0;
         leds = 16'd0;
         leds_last =16'd0;
         points <= 0;
+        lfsr_enable = 1;
     end
 
     always @(posedge clk_500hz) begin
-        lfsr_enable = 1;
-        lfsr_reset = 0;
+
+        if (initialize) begin
+            switches_last <= 0;
+            leds_on <= 0;
+            leds = 16'd0;
+            leds_last =16'd0;
+            points <= 0;
+            lfsr_enable = 1;
+        end
         
         leds = leds_temp;
         //add points as necessary
@@ -133,22 +141,19 @@ module game(
         switches_last = switches;
     end
 endmodule
-/*
+
 module start(
 
 );
 endmodule
 
-module finish(
+//no display finish module, simply implemented in manager
 
-);
-endmodule
+// module status(
 
-module status(
+// );
+// endmodule
 
-);
-endmodule
-*/
 
 module state_manager(
     input clk,
@@ -199,14 +204,33 @@ initial begin
     initialize = 0;
 end
 
-/*
+
 //handle state transitions
 always @(posedge clk) begin
     if (initialize)
-        initialize = 1'b0;
+        initialize = 1'b0; //reset initialize status
     //resets
-    if (resetGame || resetAll) begin
-        state <= 2'b00;
+    
+    //TODO: change if 
+    // if (resetGame || resetAll) begin
+    //     state <= 2'b00;
+    //     initialize = 1'b1;
+    //     if (resetAll) begin
+    //         games_played = 0;
+    //         high_score = 0;
+    //     end
+    // end
+
+
+    //status to start
+    // if (state == 2'b00 && go) begin
+    //     state <= 2'b01;
+    //     initialize = 1'b1;
+    // end
+
+    //start to game
+    if (state == 2'b01 && countdown_start == 0 || resetGame || resetAll) begin
+        state <= 2'b10;
         initialize = 1'b1;
         if (resetAll) begin
             games_played = 0;
@@ -214,36 +238,33 @@ always @(posedge clk) begin
         end
     end
 
-    //status to start
-    if (state == 2'b00 && go) begin
-        state <= 2'b01;
-        initialize = 1'b1;
-    end
-
-    //start to game
-    if (state == 2'b01 && countdown_start == 0) begin
-        state <= 2'b10;
-        initialize = 1'b1;
-    end
-
     //game to end
-    if (state = 2'b10 && countdown_game == 0) begin
+    if (state = 2'b10 && countdown_game == 1) begin
         state <= 2'b11;
         initialize = 1'b1;
 
         //update global statistics
         games_played <= games_played + 1;
-        if (score > high_score)
+        if (score > high_score) begin
             high_score <= score;
+        end
+        
+        //display game results
+        //SC: [score]
+        digit_3 <= 5'b10001; // "S"
+        digit_2 <= 5'b10100; // "C"
+        digit_1 <= score / 10; //tens place
+        digit_0 <= score % 10; //ones place
     end
 
-    //end to status
-    if (state == 2'b11 && countdown_finish == 0) begin
-        state <= 2'b00;
-        initialize = 1'b1;
-    end
+    // //end to status
+    // if (state == 2'b11 && countdown_finish == 0) begin
+    //     state <= 2'b00;
+    //     initialize = 1'b1;
+    // end
+    
 end
-
+/*
 always @(posedge clk) begin
     //per state behavior
     // status
@@ -273,35 +294,21 @@ end
 //assign digits[4] = digits[2];
 //assign leds[4] = leds[2];
 //
-/*
+// status status_display(
 
-status status_display(
+// );
 
-);
+// start start_game(
 
-start start_game(
+// );
 
-);
-
-game in_game(
-    //TODO populate
-);
-
-finish finish_game(
-
-);
-*/
-
-    clock_display display(
-        .clk_2hz(clk_2hz),
+    game play_game(
+        .clk_1hz(clk_1hz),
         .clk_500hz(clk_500hz),
-        .digit_0(digit_0),
-        .digit_1(digit_1),
-        .digit_2(digit_2),
-        .digit_3(digit_3),
-        .blink(),
-        .display_seg(display_seg),
-        .display_sel(display_sel)
+        .switches(switches),
+        .initialize(initialize),
+        .points(score),
+        .leds(leds)
     );
 
 endmodule
