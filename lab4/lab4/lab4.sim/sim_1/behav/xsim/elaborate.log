@@ -1,11 +1,11 @@
 Vivado Simulator v2024.1.2
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
-Running: E:/Xilinx/Vivado/2024.1/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot game_tb_behav xil_defaultlib.game_tb xil_defaultlib.glbl -log elaborate.log 
+Running: E:/Xilinx/Vivado/2024.1/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot whack_a_mole_tb_behav xil_defaultlib.whack_a_mole_tb xil_defaultlib.glbl -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
-WARNING: [VRFC 10-5021] port 'clk_2hz' is not connected on this instance [C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sim_1/imports/sim_1/imports/Downloads/game_tb.v:16]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 16 for port 'leds' [C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.srcs/sources_1/imports/sources_1/new/whack_a_mole.v:61]
 Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis
@@ -13,6 +13,12 @@ Time Resolution for simulation is 1ps
 Compiling module xil_defaultlib.lfsr
 Compiling module xil_defaultlib.switch_edge
 Compiling module xil_defaultlib.game
-Compiling module xil_defaultlib.game_tb
+Compiling module xil_defaultlib.countdown
+Compiling module xil_defaultlib.clock_display
+Compiling module xil_defaultlib.state_manager
+Compiling module xil_defaultlib.clock_divider
+Compiling module xil_defaultlib.debouncer
+Compiling module xil_defaultlib.whack_a_mole
+Compiling module xil_defaultlib.whack_a_mole_tb
 Compiling module xil_defaultlib.glbl
-Built simulation snapshot game_tb_behav
+Built simulation snapshot whack_a_mole_tb_behav

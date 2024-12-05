@@ -16,17 +16,17 @@ wire [6:0] seg;
 wire [3:0] an;
 
 // Instantiate the Unit Under Test (UUT)
-whack_a_mole uut (
-    .clk(clk),
-    .btnRstGame(btnRstGame),
-    .btnRstAll(btnRstAll),
-    .btnGo(btnGo),
-    .sw(sw),
-    .dp(dp),
-    .led(led),
-    .seg(seg),
-    .an(an)
-);
+    whack_a_mole uut (
+        .clk(clk),
+        .btnRstGame(btnRstGame),
+        .btnRstAll(btnRstAll),
+        .btnGo(btnGo),
+        .sw(sw),
+        .dp(dp),
+        .led(led),
+        .seg(seg),
+        .an(an)
+    );
 
 // Clock generation
 initial begin
@@ -34,39 +34,75 @@ initial begin
     forever #5 clk = ~clk; // 100MHz clock
 end
 
-// Initialize Inputs
+// Helper function to convert LED state to textual representation
+task display_leds(input [15:0] led_state);
+    integer i;
+    begin
+        $write("LEDs state: ");
+        for (i = 15; i >= 0; i = i - 1) begin
+            $write("%d", led_state[i]);
+        end
+        $display("");
+    end
+endtask
+
+// Test stimulus
 initial begin
-    // Initialize inputs to default values
+    // Initialize Inputs
     btnRstGame = 0;
     btnRstAll = 0;
     btnGo = 0;
     sw = 0;
 
-    // Wait for global reset
+    // Wait for global reset to finish
     #100;
-
-    // Test case 1: Reset game
+    
+    // Test sequence
+    // Test Case 1: Reset Game
+    $display("Resetting Game...");
     btnRstGame = 1; #20;
     btnRstGame = 0; #80;
+    display_leds(led);
 
-    // Test case 2: Start game with Go button
+    // Test Case 2: Start Game with Go button
+    $display("Starting Game...");
     btnGo = 1; #20;
     btnGo = 0; #80;
+    display_leds(led);
 
-    // Test case 3: Activate switches to simulate hitting moles
-    sw = 16'h0001; #20; // Activate first switch
-    sw = 16'h0002; #20; // Activate second switch
+    // Test Case 3: Simulate switch activity
+    $display("Activating switches...");
+    sw = 16'h0001; #50; // Activate first switch
+    display_leds(led);
+    sw = 16'h0002; #50; // Activate second switch
+    display_leds(led);
     sw = 0; #100;       // Release switches
 
-    // Test case 4: Reset all
+    // Test Case 4: Reset All
+    $display("Resetting All...");
     btnRstAll = 1; #20;
     btnRstAll = 0; #80;
+    display_leds(led);
 
-    // Test case 5: Random switch presses
-    sw = 16'h00FF; #40; // Activate several switches
+    // Test Case 5: Random switches
+    $display("Random switch activity...");
+    sw = 16'hAAAA; #50; // Alternate switches
+    display_leds(led);
+    sw = 16'h5555; #50; // Opposite alternate switches
+    display_leds(led);
     sw = 0; #100;       // Release switches
 
-    // Continue additional test cases as needed...
+    // Finish simulation
+    #200;
+    $stop;
+end
+
+// Monitor score and countdown
+always @(posedge clk) begin
+    // Assuming seg and led capture score and countdown status
+    // Decode segments and displays; logic depends on actual segment usage
+    // For demonstration, a simplified conceptual display
+    $display("Score / Countdown Display: seg=%b, an=%b", seg, an);
 end
 
 endmodule

@@ -220,12 +220,13 @@ module countdown(
     reg [6:0] sec_cnt;
 
     initial begin
-        sec_cnt <= 7'd59;
+        sec_cnt <= 7'd29;
         countdown_game = 0;
     end
 
     always @ (posedge clk_500hz) begin
         // points
+//        digit_1 = (points % 10 > 9? 0 : points % 10); //overflow
         digit_1 = points % 10;
         digit_0 = points / 10;
 

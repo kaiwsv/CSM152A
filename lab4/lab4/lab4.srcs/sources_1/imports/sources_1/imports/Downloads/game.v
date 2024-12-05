@@ -29,7 +29,7 @@ module game(
     output reg [15:0] leds
 );
 
-    parameter MAX_MOLES = 12;
+    parameter MAX_MOLES = 4;
 
     //lfsr wires
     reg lfsr_reset;
@@ -43,7 +43,6 @@ module game(
     wire [15:0] is_negative;
     wire [15:0] change_point;
     wire [15:0] leds_temp;
-    reg [15:0] leds_intermediate;
 
     //rng module
     lfsr rng(clk_500hz, lfsr_reset, lfsr_enable, random);
@@ -84,6 +83,8 @@ module game(
             leds = 16'd0;
             leds_last =16'd0;
             points = 0;
+
+
             lfsr_enable <= 1;
             lfsr_reset <= 0;
         end
@@ -109,7 +110,7 @@ module game(
         points = points + (is_negative[14] == 0 ? change_point[14] : -change_point[14]);
         points = points + (is_negative[15] == 0 ? change_point[15] : -change_point[15]);
 
-        if (points[7]) //if negative
+        if (points[7] || points < 0) //if negative
             points <= 0;
             
         //update leds on count        
@@ -138,7 +139,10 @@ module game(
 
         leds_last = leds;
         leds = leds_temp;
-        
+        leds_on = leds_last[0] + leds_last[1] + leds_last[2] + leds_last[3] +
+                        leds_last[4] + leds_last[5] + leds_last[6] + leds_last[7] +
+                        leds_last[8] + leds_last[9] + leds_last[10] + leds_last[11] +
+                        leds_last[12] + leds_last[13] + leds_last[14] + leds_last[15];
         //turn on new LEDs if necessary
         //only occurs if there's few moles (<MAX_MOLES) and led is not already on 
         if (leds_last[random] == 0 && leds_on < MAX_MOLES) begin
@@ -148,7 +152,7 @@ module game(
         
 //        leds = leds_intermediate;
 //        leds_last = leds;
-        
+
         switches_last = switches;
     end
 endmodule
@@ -212,7 +216,7 @@ reg [6:0] digit_0, digit_1, digit_2, digit_3;
 reg [3:0] games_played;
 reg [10:0] high_score; //can be negative
 wire resets;
-
+reg first;
 assign resets = resetGame || resetAll;
 
 initial begin
@@ -220,15 +224,16 @@ initial begin
     games_played <= 0;
     high_score <= 0;
     initialize <= 1;
+    first <= 1;
 end
 
 
 //handle state transitions
 always @(posedge clk) begin
-    if (initialize)
-        initialize = 1'b0; //reset initialize status
-    //resets
     
+    if (initialize && ~clk_1hz)
+        initialize = 1'b0; //reset initialize status
+    //reset initialize
     //TODO: change if 
     // if (resetGame || resetAll) begin
     //     state <= 2'b00;
@@ -271,9 +276,11 @@ always @(posedge clk) begin
         //display game results
         //SC: [score]
         finish_digit_3 <= 5'b10001; // "S"
-        finish_digit_2 <= 5'b10100; // "C"
-        finish_digit_1 <= score / 10; //tens place
-        finish_digit_0 <= score % 10; //ones place
+        finish_digit_2 <= score % 100;
+//        finish_digit_2 <= 5'b10100; // "C"
+//        finish_digit_1 <= (score % 10 > 9? 0 : score % 10); //tens place with overflow
+        finish_digit_1 <= score % 10;
+        finish_digit_0 <= score / 10; //ones place
     end
 
     // //end to status
@@ -281,7 +288,6 @@ always @(posedge clk) begin
     //     state <= 2'b00;
     //     initialize = 1'b1;
     // end
-   
 end
 
 always @(posedge clk) begin
