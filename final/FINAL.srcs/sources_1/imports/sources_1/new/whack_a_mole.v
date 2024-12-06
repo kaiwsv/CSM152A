@@ -1,24 +1,7 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 11/19/2024 10:31:04 AM
-// Design Name: 
-// Module Name: whack_a_mole
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
+//top level module - integrate state machine with hardware
+//use modules such as clock divider and debounce to produce necessary signals
 
 module whack_a_mole(
     input wire clk,
@@ -45,10 +28,13 @@ module whack_a_mole(
     wire go;
     wire [15:0] switches;
 
+    //turn off the dots on the display
     initial begin
         dp <= 1;
     end
     
+    //modules to integrate together - unused ports are left empty
+    //state_manager to control whole board
     state_manager manager(
         .clk(clk),
         .clk_1hz(clk_1hz),
@@ -64,6 +50,7 @@ module whack_a_mole(
         .display_sel(an)
     );
     
+    //clock divider to feed state machine necessary clock signals
     clock_divider divider(
         .clk(clk),
         .rst_1(),
@@ -74,6 +61,7 @@ module whack_a_mole(
         .clk_500hz(clk_500hz)
     );
     
+    //debouncers for all buttons and hardware to create stable input
     debouncer db_reset_game(
         .clk(clk), 
         .button(btnRstGame), 

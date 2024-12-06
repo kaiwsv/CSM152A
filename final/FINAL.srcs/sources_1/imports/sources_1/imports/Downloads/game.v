@@ -1,23 +1,6 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 11/19/2024 10:08:55 AM
-// Design Name: 
-// Module Name: game
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+
+//state machine + main game mode logic
 
 module game(
     input wire clk_1hz,
@@ -112,63 +95,30 @@ module game(
 
         if (points[7] || points < 0) //if negative
             points <= 0;
-            
-        //update leds on count        
-        leds_on = leds_on + (is_negative[0] == 0? -change_point[0] : 0);
-        leds_on = leds_on + (is_negative[1] == 0? -change_point[1] : 0);
-        leds_on = leds_on + (is_negative[2] == 0? -change_point[2] : 0);
-        leds_on = leds_on + (is_negative[3] == 0? -change_point[3] : 0);
-        leds_on = leds_on + (is_negative[4] == 0? -change_point[4] : 0);
-        leds_on = leds_on + (is_negative[5] == 0? -change_point[5] : 0);
-        leds_on = leds_on + (is_negative[6] == 0? -change_point[6] : 0);
-        leds_on = leds_on + (is_negative[7] == 0? -change_point[7] : 0);
-        leds_on = leds_on + (is_negative[8] == 0? -change_point[8] : 0);
-        leds_on = leds_on + (is_negative[9] == 0? -change_point[9] : 0);
-        leds_on = leds_on + (is_negative[10] == 0? -change_point[10] : 0);
-        leds_on = leds_on + (is_negative[11] == 0? -change_point[11] : 0);
-        leds_on = leds_on + (is_negative[12] == 0? -change_point[12] : 0);
-        leds_on = leds_on + (is_negative[13] == 0? -change_point[13] : 0);
-        leds_on = leds_on + (is_negative[14] == 0? -change_point[14] : 0);
-        leds_on = leds_on + (is_negative[15] == 0? -change_point[15] : 0);     
 
         //turn off LEDs that are hit
-//        leds_intermediate = leds_temp;
-//        leds_intermediate = leds;
-//        leds = leds_temp;
-//        leds_last = leds_intermediate;
-
-        leds_last = leds;
         leds = leds_temp;
         leds_on = leds_last[0] + leds_last[1] + leds_last[2] + leds_last[3] +
                         leds_last[4] + leds_last[5] + leds_last[6] + leds_last[7] +
                         leds_last[8] + leds_last[9] + leds_last[10] + leds_last[11] +
                         leds_last[12] + leds_last[13] + leds_last[14] + leds_last[15];
-        //turn on new LEDs if necessary
+
+        //turn on new LED if necessary (place mole), use constantly generated random variable from lfsr
+        //moles appear from lfsr deterministic pseudorandom random string- behaves like truly random since 
+        //player inputs are vary wildly and effectively cause the output moles to be truly random 
+        //tries index random, if it's valid check if there's room for another mole, if so add a mole there
+
         //only occurs if there's few moles (<MAX_MOLES) and led is not already on 
         if (leds_last[random] == 0 && leds_on < MAX_MOLES) begin
             leds_last[random] = 1;
             leds_on = leds_on + 1;
         end
         
-//        leds = leds_intermediate;
-//        leds_last = leds;
-
+        //update last state variables for next loop logic
         switches_last = switches;
+        leds_last = leds;
     end
 endmodule
-
-//module start(
-
-//);
-//endmodule
-
-//no display finish module, simply implemented in manager
-
-// module status(
-
-// );
-// endmodule
-
 
 module state_manager(
     input clk,
@@ -199,16 +149,10 @@ reg [30:0] countdown_finish;
 reg initialize;
 
 //score display after finish
-reg [6:0] finish_digit_0;
-reg [6:0] finish_digit_1;
-reg [6:0] finish_digit_2;
-reg [6:0] finish_digit_3;
+reg [6:0] finish_digit_0, finish_digit_1, finish_digit_2, finish_digit_3;
 
 //status display: hi and games played
-reg [6:0] status_digit_0;
-reg [6:0] status_digit_1;
-reg [6:0] status_digit_2;
-reg [6:0] status_digit_3;
+reg [6:0] status_digit_0, status_digit_1, status_digit_2, status_digit_3;
 
 //score display during game
 wire [6:0] game_digit_0;
@@ -216,15 +160,19 @@ wire [6:0] game_digit_1;
 wire [6:0] game_digit_2;
 wire [6:0] game_digit_3;
 
+//final output display - determined by state machine state
 reg [6:0] digit_0, digit_1, digit_2, digit_3;
 
 //local variables
 reg [3:0] games_played;
-reg [10:0] high_score; //can be negative
+reg [10:0] high_score; 
 wire resets;
 reg status;
+
+//allow other code to simply check if any reset sohuld occur
 assign resets = resetGame || resetAll;
 
+//initialize values and states - begin game immediately
 initial begin
     state <= 2'b10;
     games_played <= 0;
@@ -242,23 +190,7 @@ always @(posedge clk) begin
     
     if (initialize && ~clk_1hz)
         initialize = 1'b0; //reset initialize status
-    //reset initialize
-    //TODO: change if 
-    // if (resetGame || resetAll) begin
-    //     state <= 2'b00;
-    //     initialize = 1'b1;
-    //     if (resetAll) begin
-    //         games_played = 0;
-    //         high_score = 0;
-    //     end
-    // end
-
-
-    //status to start
-    // if (state == 2'b00 && go) begin
-    //     state <= 2'b01;
-    //     initialize = 1'b1;
-    // end
+    //initialize should just be high for one clock cycle, enough for anything dependent to run
 
     //start to game
      //&& countdown_start == 0
@@ -285,13 +217,11 @@ always @(posedge clk) begin
         //display game results
         //SC: [score]
         finish_digit_3 <= 5'b10001; // "S"
-        finish_digit_2 <= 5'b11111;
-//        finish_digit_2 <= 5'b10100; // "C"
-//        finish_digit_1 <= (score % 10 > 9? 0 : score % 10); //tens place with overflow
-        finish_digit_1 <= score / 10;
+        finish_digit_2 <= 5'b11111; //show nothing next to S
+        finish_digit_1 <= score / 10; //tens place
         finish_digit_0 <= score % 10; //ones place
         
-        countdown_finish = 500000000; //5 seconds
+        countdown_finish = 500000000; //5 seconds of counting down before status
     end
 
      //end to status
@@ -307,7 +237,7 @@ always @(posedge clk) begin
 end
 
 always @(posedge clk) begin
-    //per state behavior
+    //per state behavior - set output digits
     // game
     if (state == 2'b10) begin
         digit_0 <= game_digit_0;
@@ -315,14 +245,14 @@ always @(posedge clk) begin
         digit_2 <= game_digit_2;
         digit_3 <= game_digit_3;
     end
-//    // finish
+    // finish
     if (state == 2'b11) begin
         digit_0 <= finish_digit_0;
         digit_1 <= finish_digit_1;
         digit_2 <= finish_digit_2;
         digit_3 <= finish_digit_3;
     end
-    
+    //status - high score + games played
     if (state == 2'b00) begin
         digit_0 <= status_digit_0;
         digit_1 <= status_digit_1;
@@ -330,21 +260,9 @@ always @(posedge clk) begin
         digit_3 <= status_digit_3;
     end
 end
-
-
-////TODO fix when states implemented
-//assign digits[4] = digits[2];
-//assign leds[4] = leds[2];
-//
-// status status_display(
-
-// );
-
-// start start_game(
-
-// );
     
-    //states:
+    //modules
+    //game state - only state with module due to complexity
     game play_game(
         .clk_1hz(clk_1hz),
         .clk_2hz(clk_2hz),
@@ -355,6 +273,7 @@ end
         .leds(leds)
     );
     
+    //handles display output during game mode - indicates when state transition should occur
     countdown game_countdown(
         .clk_1hz(clk_1hz),
         .clk_500hz(clk_500hz),
@@ -367,6 +286,7 @@ end
         .digit_3(game_digit_3)
     );
     
+    //take in desired output digits in binary and output multiplexed 7 segment display code
     clock_display display(
         .clk_2hz(clk_2hz), 
         .clk_500hz(clk_500hz), 

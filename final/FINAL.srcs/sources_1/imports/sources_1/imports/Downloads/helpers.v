@@ -1,23 +1,7 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 11/19/2024 10:11:24 AM
-// Design Name: 
-// Module Name: helpers
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+
+//all helper modules, some recycled from previous labs
+
 //divide 100 Mhz clk
 module clock_divider(clk, rst_1, rst_2, rst_500, clk_1hz, clk_2hz, clk_500hz);
     reg[26:0] ticks_1;
@@ -160,6 +144,8 @@ module clock_display(clk_2hz, clk_500hz, digit_0, digit_1, digit_2, digit_3, bli
     end
 endmodule
     
+//linear feedback shift register
+//polynomial, shift, and select adjusted to produce a very long pseudorandom string
 module lfsr(
     input wire clk, 
     input wire lfsr_rst, 
@@ -187,9 +173,9 @@ module lfsr(
     always @(posedge clk) begin
         random <= lfsr[3:0];
     end
-
 endmodule
 
+//helper module per switch that checks what/how the game should change for specific switch
 module switch_edge(
     input switch, 
     input switch_last, 
@@ -204,7 +190,9 @@ module switch_edge(
     assign led_new = led && ~change_point; //if led is on and switch is flipped, turn off
 endmodule
 
-
+//handles display output during game mode - indicates when state transition should occur
+//hardcoded 30 second long game - decided on 29 after playtesting
+//long enough to be fun and challenging, not enough for fingers to be too sore from sharp switch tops
 module countdown(
     input clk_1hz,
     input clk_500hz,
@@ -220,13 +208,12 @@ module countdown(
     reg [6:0] sec_cnt;
 
     initial begin
-        sec_cnt <= 7'd29;
+        sec_cnt <= 7'd30;
         countdown_game = 0;
     end
 
     always @ (posedge clk_500hz) begin
         // points
-//        digit_1 = (points % 10 > 9? 0 : points % 10); //overflow
         digit_1 = points % 10;
         digit_0 = points / 10;
 
@@ -236,13 +223,16 @@ module countdown(
     end
     
     always @ (posedge clk_1hz) begin
+        //restart game countdown if rest occurs
         if (rst_game) begin
-            sec_cnt <= 7'd29;
+            sec_cnt <= 7'd30;
             countdown_game = 0;
         end else begin
+            //send "end the game" signal if countdown concludes
             if (sec_cnt <= 0) begin
                 countdown_game <= 1;
             end
+            //otherwise decrement the counter once every second
             else begin
                 sec_cnt <= sec_cnt - 1; 
                 countdown_game <= 0;
