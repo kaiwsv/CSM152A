@@ -1,0 +1,98 @@
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
+| Date         : Thu Dec  5 11:50:58 2024
+| Host         : CS152A-04 running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file whack_a_mole_control_sets_placed.rpt
+| Design       : whack_a_mole
+| Device       : xa7a35t
+-----------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Number of unique control sets                            |    31 |
+| Unused register locations in slices containing registers |   138 |
++----------------------------------------------------------+-------+
+
+
+2. Histogram
+------------
+
++--------+--------------+
+| Fanout | Control Sets |
++--------+--------------+
+|      2 |            1 |
+|      8 |            1 |
+|     14 |            3 |
+|    16+ |           26 |
++--------+--------------+
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |             298 |           52 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |             466 |           62 |
+| Yes          | No                    | No                     |              78 |           11 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |              36 |            5 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++------------------+-----------------------------------------------+------------------------------------------+------------------+----------------+
+|   Clock Signal   |                 Enable Signal                 |             Set/Reset Signal             | Slice Load Count | Bel Load Count |
++------------------+-----------------------------------------------+------------------------------------------+------------------+----------------+
+|  divider/clk_1hz |                                               |                                          |                1 |              2 |
+|  clk_IBUF_BUFG   | manager/game_countdown/games_played_reg[3][0] | manager/game_countdown/SR[0]             |                1 |              8 |
+|  clk_500hz_BUFG  |                                               | manager/play_game/p_0_in                 |                2 |             14 |
+|  clk_IBUF_BUFG   | manager/game_countdown/high_score_reg[0]      | manager/game_countdown/high_score_reg[6] |                2 |             14 |
+|  divider/clk_1hz | manager/game_countdown/sel                    | db_reset_game/SR[0]                      |                2 |             14 |
+|  clk_IBUF_BUFG   | manager/game_countdown/games_played_reg[3][0] |                                          |                2 |             16 |
+|  clk_IBUF_BUFG   |                                               | db_sw_1/counter[8]_i_1__2_n_0            |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_10/counter[8]_i_1__11_n_0          |                3 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_11/counter[8]_i_1__12_n_0          |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_13/counter[8]_i_1__14_n_0          |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_12/counter[8]_i_1__13_n_0          |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_15/counter[8]_i_1__16_n_0          |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_14/counter[8]_i_1__15_n_0          |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_2/counter[8]_i_1__3_n_0            |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_reset_all/counter[8]_i_1__0_n_0       |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_reset_game/counter[8]_i_1_n_0         |                3 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_0/counter[8]_i_1__1_n_0            |                3 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_3/counter[8]_i_1__4_n_0            |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_5/counter[8]_i_1__6_n_0            |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_4/counter[8]_i_1__5_n_0            |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_7/counter[8]_i_1__8_n_0            |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_6/counter[8]_i_1__7_n_0            |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_8/counter[8]_i_1__9_n_0            |                2 |             18 |
+|  clk_IBUF_BUFG   |                                               | db_sw_9/counter[8]_i_1__10_n_0           |                2 |             18 |
+|  clk_IBUF_BUFG   | manager/game_countdown/E[0]                   |                                          |                3 |             26 |
+|  clk_500hz_BUFG  |                                               | manager/initialize                       |                8 |             32 |
+|  clk_IBUF_BUFG   | manager/digit_0[3]_i_1_n_0                    |                                          |                6 |             36 |
+|  clk_IBUF_BUFG   |                                               | divider/ticks_5000                       |                6 |             42 |
+|  clk_IBUF_BUFG   |                                               | divider/ticks_10                         |                7 |             54 |
+|  clk_IBUF_BUFG   |                                               |                                          |               26 |            144 |
+|  clk_500hz_BUFG  |                                               |                                          |               26 |            154 |
++------------------+-----------------------------------------------+------------------------------------------+------------------+----------------+
+
+
