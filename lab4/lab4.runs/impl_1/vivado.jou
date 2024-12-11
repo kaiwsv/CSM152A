@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2024.1.2 (64-bit)
+# SW Build 5164865 on Thu Sep  5 14:37:11 MDT 2024
+# IP Build 5164407 on Fri Sep  6 08:18:11 MDT 2024
+# SharedData Build 5164864 on Thu Sep 05 13:09:09 MDT 2024
+# Start of session at: Thu Dec  5 04:00:45 2024
+# Process ID: 17796
+# Current directory: C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.runs/impl_1
+# Command line: vivado.exe -log whack_a_mole.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source whack_a_mole.tcl -notrace
+# Log file: C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.runs/impl_1/whack_a_mole.vdi
+# Journal file: C:/Users/BOBBY/Documents/GitHub/CSM152A/lab4/lab4/lab4.runs/impl_1\vivado.jou
+# Running On        :DESKTOP-7V211I7
+# Platform          :Windows Server 2016 or Windows 10
+# Operating System  :19045
+# Processor Detail  :Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz
+# CPU Frequency     :3408 MHz
+# CPU Physical cores:4
+# CPU Logical cores :8
+# Host memory       :17096 MB
+# Swap memory       :4563 MB
+# Total Virtual     :21659 MB
+# Available Virtual :9085 MB
+#-----------------------------------------------------------
+source whack_a_mole.tcl -notrace

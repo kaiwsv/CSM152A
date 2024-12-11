@@ -1,0 +1,108 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
+| Date         : Thu Dec  5 04:01:23 2024
+| Host         : DESKTOP-7V211I7 running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file whack_a_mole_control_sets_placed.rpt
+| Design       : whack_a_mole
+| Device       : xc7a35t
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    30 |
+|    Minimum number of control sets                        |    30 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |   165 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    30 |
+| >= 0 to < 4        |     2 |
+| >= 4 to < 6        |     2 |
+| >= 6 to < 8        |     2 |
+| >= 8 to < 10       |    18 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     1 |
+| >= 16              |     5 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |             125 |           52 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |             243 |           73 |
+| Yes          | No                    | No                     |              15 |            6 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |               4 |            1 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++------------------+-----------------------------+----------------------------------------+------------------+----------------+--------------+
+|   Clock Signal   |        Enable Signal        |            Set/Reset Signal            | Slice Load Count | Bel Load Count | Bels / Slice |
++------------------+-----------------------------+----------------------------------------+------------------+----------------+--------------+
+|  divider/clk_1hz |                             |                                        |                1 |              1 |         1.00 |
+|  divider/clk_1hz |                             | db_reset_game/SS[0]                    |                1 |              1 |         1.00 |
+|  divider/clk_1hz | manager/game_countdown/sel  | db_reset_game/SS[0]                    |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG   |                             | manager/digit_2[6]_i_1_n_0             |                1 |              5 |         5.00 |
+|  clk_500hz_BUFG  |                             | manager/display/display_seg[6]_i_1_n_0 |                1 |              7 |         7.00 |
+|  clk_500hz_BUFG  |                             | manager/play_game/p_1_in[7]            |                2 |              7 |         3.50 |
+|  clk_IBUF_BUFG   |                             | db_sw_3/counter[8]_i_1__4_n_0          |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG   |                             | db_sw_4/counter[8]_i_1__5_n_0          |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG   |                             | db_sw_5/counter[8]_i_1__6_n_0          |                2 |              9 |         4.50 |
+|  clk_IBUF_BUFG   |                             | db_sw_6/counter[8]_i_1__7_n_0          |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG   |                             | db_sw_7/counter[8]_i_1__8_n_0          |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG   |                             | db_sw_8/counter[8]_i_1__9_n_0          |                2 |              9 |         4.50 |
+|  clk_IBUF_BUFG   |                             | db_sw_9/counter[8]_i_1__10_n_0         |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG   |                             | db_sw_1/counter[8]_i_1__2_n_0          |                2 |              9 |         4.50 |
+|  clk_IBUF_BUFG   |                             | db_sw_10/counter[8]_i_1__11_n_0        |                2 |              9 |         4.50 |
+|  clk_IBUF_BUFG   |                             | db_sw_11/counter[8]_i_1__12_n_0        |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG   |                             | db_sw_12/counter[8]_i_1__13_n_0        |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG   |                             | db_sw_13/counter[8]_i_1__14_n_0        |                2 |              9 |         4.50 |
+|  clk_IBUF_BUFG   |                             | db_sw_14/counter[8]_i_1__15_n_0        |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG   |                             | db_sw_15/counter[8]_i_1__16_n_0        |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG   |                             | db_sw_2/counter[8]_i_1__3_n_0          |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG   |                             | db_reset_all/counter[8]_i_1__0_n_0     |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG   |                             | db_reset_game/counter[8]_i_1_n_0       |                2 |              9 |         4.50 |
+|  clk_IBUF_BUFG   |                             | db_sw_0/counter[8]_i_1__1_n_0          |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG   | manager/game_countdown/E[0] |                                        |                6 |             15 |         2.50 |
+|  clk_500hz_BUFG  |                             | manager/initialize                     |                8 |             16 |         2.00 |
+|  clk_IBUF_BUFG   |                             | divider/ticks_5000                     |                5 |             18 |         3.60 |
+|  clk_IBUF_BUFG   |                             | divider/ticks_10                       |                7 |             27 |         3.86 |
+|  clk_IBUF_BUFG   |                             |                                        |               22 |             55 |         2.50 |
+|  clk_500hz_BUFG  |                             |                                        |               29 |             70 |         2.41 |
++------------------+-----------------------------+----------------------------------------+------------------+----------------+--------------+
+
+
